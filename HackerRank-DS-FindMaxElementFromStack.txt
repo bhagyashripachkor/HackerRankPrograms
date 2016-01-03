@@ -1,0 +1,62 @@
+import java.util.Scanner;
+import java.util.Stack;
+
+
+public class Solution {
+  static Stack<Integer> original = new Stack<>();
+  static Stack<Integer> max = new Stack<>();
+  
+  public static void main(String[] args) {
+
+    Scanner in = new Scanner(System.in);
+   
+    String input1,input2;
+    String[] inp;
+    input1 = in.nextLine();
+    int query = 0;
+    while(query != Integer.parseInt(input1)) {
+      input2 = in.nextLine();
+      inp = input2.split(" ");
+      int type = Integer.parseInt(inp[0]);
+      if(type == 1){
+        add(Integer.parseInt(inp[1]));
+      }else if(type == 2){
+        remove();
+      }else
+        printMaxEle();
+      query++;
+    }
+  }
+
+  private static void printMaxEle() {
+    // TODO Auto-generated method stub
+    System.out.println(getMax());
+  }
+
+  private static int remove() {
+    // TODO Auto-generated method stub
+    if(!original.isEmpty()){
+      max.pop();
+      return original.pop();
+    }
+    return 0;
+  }
+
+  private static int getMax(){
+    return max.peek();
+  }
+  private static void add(int element) {
+    // TODO Auto-generated method stub
+    if(original.isEmpty()){
+      original.add(element);
+      max.add(element);
+    }else{
+      int num = max.peek();
+      max.add(Math.max(num, element));
+      original.add(element);
+    }
+  }
+  
+
+  
+}
