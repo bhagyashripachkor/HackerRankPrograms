@@ -1,0 +1,69 @@
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+
+public class Solution {
+
+    public static void main(String[] args) {
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
+        Scanner in = new Scanner(System.in);
+      String input = in.nextLine();
+      int n = 0;
+      while(n != Integer.parseInt(input)){
+        String str = in.nextLine();
+        boolean result = isBalanced(str);
+        if( result == true)
+          System.out.println("YES");
+        else
+          System.out.println("NO");
+        n++;
+      }
+      in.close();
+    }
+    private static final char LEFT_PARENTHESIS = '(';
+    private static final char RIGHT_PARENTHESIS = ')';
+    private static final char LEFT_BRACES = '{';
+    private static final char RIGHT_BRACES = '}';
+    private static final char LEFT_BRACKET = '[';
+    private static final char RIGHT_BRACKET = ']';
+
+    public static boolean isBalanced(String input) {
+        Stack<Character> stack = new Stack<Character>();
+        for (int i = 0; i < input.length(); i++) {
+
+            if (input.charAt(i) == LEFT_PARENTHESIS)   
+              stack.push(LEFT_PARENTHESIS);
+
+            else if (input.charAt(i) == LEFT_BRACES)   
+              stack.push(LEFT_BRACES);
+
+            else if (input.charAt(i) == LEFT_BRACKET) 
+              stack.push(LEFT_BRACKET);
+
+            else if (input.charAt(i) == RIGHT_PARENTHESIS) {
+                if (stack.isEmpty())        
+                  return false;
+                if (stack.pop() != LEFT_PARENTHESIS) 
+                  return false;
+            }
+
+            else if (input.charAt(i) == RIGHT_BRACES) {
+                if (stack.isEmpty())        
+                  return false;
+                if (stack.pop() != LEFT_BRACES) 
+                  return false;
+            }
+
+            else if (input.charAt(i) == RIGHT_BRACKET) {
+                if (stack.isEmpty())        
+                  return false;
+                if (stack.pop() != LEFT_BRACKET) 
+                  return false;
+            }
+
+        }
+        return stack.isEmpty();
+    }
+}
